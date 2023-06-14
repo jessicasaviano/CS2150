@@ -1,0 +1,29 @@
+C006 000             jmp      start      skip around the variables
+0000 001     i       dw       0          int i
+001D 002    line_num       dw       0          int a[]
+0000 003  zero var
+0001 004    one     one var
+3000 005   loadit
+3002 006   load in line number
+6001 007   i
+D01C 008     jmpe to end
+E01C 009    jmpl to end
+3001 00A   load in i
+6004  00B  sub one
+D016  00C  jump 
+3005 00D   loading in sepcific index
+5001 00E   add index
+4010 00F     storeit
+3010 010  doit
+1800 011   printH
+3001 012   load in i
+5004 013   incrmenet i
+4001 014    store i
+C006 015    jmp back to start
+3003 016  load in correct to print
+1800 017 printh
+3001 018  load back in i
+5004 019 add 1 back into it
+4001 01A  store in i
+c006 01B  load in line number
+0000 01C   halt
