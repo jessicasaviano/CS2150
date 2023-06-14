@@ -1,0 +1,30 @@
+C00A  000            jmp    start       skip to variables
+0000  001    i       dw       0           int i
+0000  002    s       dw       0           int s
+0000  003    n       dw       0           int n
+0001 004     one     dw       1
+0000 005     sumz    dw       0
+0000 006
+0000 007
+0000 008
+0000 009
+1000 00A  start     readH                 read n
+4003 00B            store     n 
+1000 00C            readH                 read s
+4002 00D            store     s
+1000 00E            readH                 read i
+4001 00F            store     i
+3005 010            load      sumz
+5001 011            add       i
+5002 012            add       s
+5003 013            add       n
+1800 014            printH    
+D017 015            jmpe      xit          if the sum == 0, go to end
+C00A 016  restart   jmp       start        if its not equal to 0, repeat
+3003 017  xit       load      n
+1800 018            printH    n
+3002 019            load      s
+1800 01A            printH    s
+3001 01B            load      i
+1800 01C            printH    i
+0000 01D            halt

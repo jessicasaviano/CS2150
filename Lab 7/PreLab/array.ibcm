@@ -1,0 +1,58 @@
+C009  000             jmp      start      skip around the variables
+0000  001     i       dw       0          int i
+003F  002     a       dw       0          int a[]
+0000  003     n       dw       0
+0001  004     one     dw       1
+0000  005     zero    dw       0
+3000  006     loadit   dw     3000
+4000  007     storeit  dw    4000     storing
+0000  008
+1000  009    start    readH              read array size
+4003  00A             store   n
+3005  00B             load    zero       i=0; 
+4001  00C             store   i
+3003  00D    loop     load   n          if (i>= N) goto xit
+6001  00E             sub    i
+D01B  00F             jmpe   xit         
+E01B  010             jmpl    xit
+3007  011             load    store      form inst to load  a[i]
+5002  012             add     a
+5001  013             add     i
+4016  014             store   doit     plant inst into code
+1000  015            readH
+0000  016     doit    dw      0
+3001  017             load    i        i+=1
+5004  018             add     one
+4001  019             store   i
+C00D  01A             jmp     loop     goto loop
+3005  01B             load    zero       i=0; 
+4001  01C             store   i
+3003  01D    loop     load   n          if (i>= N) goto xit
+6001  01E             sub    i
+D02B  01F             jmpe   xit         
+E02B  020             jmpl    xit
+3006  021             load    loadit      form inst to load  a[i]
+5002  022             add     a
+5001  023             add     i
+4025  024             store   doit     plant inst into code
+0000  025     doit     dw      0
+1800  026             printH
+3001  027             load    i        i+=1
+5004  028             add     one
+4001  029             store  i
+C01D  02A             jmp     loop     goto loop
+3003  02B             load   n       i= size of array; 
+6004  02C             sub  1
+4001  02D             store    i
+E039  02E             jmpl   xit          if (i< 0) goto xit, second loop
+3006  02F            load    loadit      form inst to load  a[i]
+5002  030             add     a
+5001  031             add     i
+4033  032             store   doit     plant inst into code
+0000  033     doit     dw      0
+1800  034             printH
+3001  035             load    i        i-=1
+6004  036             sub     one
+4001  037             store  i
+C02E  038             jmp     loop     goto loop
+0000  039             halt
