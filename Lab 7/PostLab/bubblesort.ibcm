@@ -1,0 +1,104 @@
+C00C  000    jmp to start
+0070  001    a[]
+0000  002    temp var
+000A  003    max var
+0000  004   i var
+0009  005   j var
+0000  006   zero var  
+0001  007   one var
+0000  008  temp var
+0000  009  term-1 var
+3070  00A   loadit
+4070  00B   storeit
+B000  00C
+B004  00D
+B007  00E
+B005  00F
+3003  010    loop     load   max          if (i>= N) goto xit
+6004  011            sub    i
+D023  012             jmpe   xit
+E023  013             jmpl    xit
+300B  014             load    store      form inst to load  a[i]
+B001  015             add     a
+5004  016             add     i
+4019  017             store   doit     plant inst into code
+1000  018            readH
+0000  019     doit    dw      0
+3004  01A             load    i        i+=1
+5007  01B             add     one
+4004  01C             store   i
+C010  01D             jmp     loop     goto loop
+B000  01E
+B000  01F
+B000  020
+B000  021
+B000  022
+3006  023   load zero
+4004  024   store i
+B000  025 
+3003  026  loading in max (index) START OF FIRST LOOP
+6004  027  subtract i (for while look i<max, i-max <=0)
+D057  (end) 028  go to halt if it does not go in first loop
+E057 (end)  029  go to halt it it does not go in first loop
+3005  02A  loading in j to start SECOND/INNER LOOP
+6004  02B  subtract i from j (j-i<=0) condition
+D052  02C jump to bottom to increment i, and decrement j
+E052  02D  jump to bottom to increment i, and decrememnet j
+300A  02E  loading in loadit (so i can load in specific index)
+B001  02F   add a[]
+5005  030   add j
+4032  031   storeit
+0000   032  doit
+4008   033  storing a[j]
+300A   034  loadit (again)
+B000  035
+B000  036
+B000  037
+B000  038
+B001  039  add a
+5005  03A   add j
+6007  03B sub one (to get A[j-1])
+403D  03C  storeit
+0000  03D  doit
+4009  03E  storing A[j-1]
+3009   03F  loading in term-1 val
+6008   040   sub term - 1 val (a[j-1] - a[j])
+E052   041   IF statemnt in seocnd loop
+D052    042 or equal
+300B    043 load in storeit
+5005    044  add j
+4047    045  storeit
+3009    046  swap
+0000   047    doit
+300B   048    laod in storeit
+5005   049    store it as  temp
+6007  04A     load in previous
+404D   04B   store it in A[j]
+3008    04C    load in temp
+0000    04D  doit
+3005     04E   load in j
+6007      04F   sub 1
+4005    050    store j (this is decremneing j!)
+C02A    051  BACK TO SECOND LOOP
+3005    052   load in i
+5007     053    add 1
+4004      054    store i (this is incrmenting i!)
+C026     055 RESTART LOOP
+B000      056
+3006      057 load zero, store i
+4004     058 NOW PRINT FORWARD......
+3003  059    loop     load   max          if (i>= N) goto xit
+6004  05A             sub    i
+D067  05B             jmpe   xit
+E067  05C             jmpl    xit
+300A  05D             load    loadit      form inst to load  a[i]
+B001  05E             add     a
+5004  05F             add     i
+4061  060             store   doit     plant inst into code
+0000  061    doit     dw      0
+1800  062             printH
+3004  063             load    i        i+=1
+5007  064             add     one
+4004  065             store  i
+C059  066             jmp     loop     goto loop
+0000  067    halt
